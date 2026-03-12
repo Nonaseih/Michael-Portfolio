@@ -1,0 +1,41 @@
+.ghost-cursor {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.ghost-cursor > canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+}
+
+.ghost-cursor-fallback {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at var(--ghost-x, 50%) var(--ghost-y, 50%),
+    rgba(177, 158, 239, 0.82) 0%,
+    rgba(177, 158, 239, 0.48) 12%,
+    rgba(177, 158, 239, 0.26) 24%,
+    rgba(177, 158, 239, 0.1) 40%,
+    rgba(177, 158, 239, 0) 58%
+  );
+  mix-blend-mode: screen;
+  filter: saturate(1.15) brightness(1.25);
+  animation: ghostFallbackPulse 1.65s ease-in-out infinite;
+}
+
+@keyframes ghostFallbackPulse {
+  0%,
+  100% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+}

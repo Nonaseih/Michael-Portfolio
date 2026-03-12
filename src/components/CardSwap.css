@@ -1,0 +1,49 @@
+.card-swap-container {
+  position: absolute;
+  right: 50%;
+  bottom: 0;
+  transform: translate(50%, 0%);
+  transform-origin: bottom center;
+  perspective: 900px;
+  overflow: visible;
+}
+
+.card-swap-container .card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 0;
+  border: 1px solid rgba(208, 208, 208, 0.25);
+  background: linear-gradient(180deg, rgba(14, 14, 14, 0.92), rgba(8, 8, 8, 0.92));
+  color: var(--text-primary);
+  transform-style: preserve-3d;
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  padding: 1.2rem;
+}
+
+.project-swap-card h3 {
+  margin: 0 0 0.55rem;
+  color: var(--gold);
+  letter-spacing: 0.03em;
+}
+
+.project-swap-card p {
+  margin: 0;
+  color: var(--text-muted);
+}
+
+@media (max-width: 768px) {
+  .card-swap-container {
+    transform: scale(0.78) translate(64%, 0%);
+  }
+}
+
+@media (max-width: 480px) {
+  .card-swap-container {
+    transform: scale(0.62) translate(80%, 0%);
+  }
+}
