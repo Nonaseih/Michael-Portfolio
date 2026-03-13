@@ -199,5 +199,5 @@ export default function Aurora(props) {
     }
   }, [amplitude, blend, colorStops])
 
-  return <div ref={ctnDom} className="aurora-root" />
+  // Aurora effect removed
 }

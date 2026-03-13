@@ -84,6 +84,8 @@ function CardSwap({
   const intervalRef = useRef(null)
   const containerRef = useRef(null)
   const swapRef = useRef(() => {})
+  const busyRef = useRef(false)
+  const clickSwapRef = useRef(false)
 
   const clearSwapInterval = () => {
     if (intervalRef.current) {
@@ -108,28 +110,34 @@ function CardSwap({
     })
 
     const swap = () => {
-      if (order.current.length < 2) return
-
+      if (order.current.length < 2 || busyRef.current) return
       const [front, ...rest] = order.current
       const frontElement = refs[front]?.current
       if (!frontElement) return
-
+      busyRef.current = true
       tlRef.current?.kill()
-      const timeline = gsap.timeline()
+      // Use fast durations for click swaps
+      const isClick = clickSwapRef.current
+      const animConfig = isClick
+        ? { durDrop: 0.22, durMove: 0.22, durReturn: 0.22, promoteOverlap: 0.45, returnDelay: 0.1, ease: 'power1.inOut' }
+        : config
+      clickSwapRef.current = false
+      const timeline = gsap.timeline({
+        onComplete: () => {
+          busyRef.current = false
+        }
+      })
       tlRef.current = timeline
-
       timeline.to(frontElement, {
         y: '+=500',
-        duration: config.durDrop,
-        ease: config.ease,
+        duration: animConfig.durDrop,
+        ease: animConfig.ease,
       })
-
-      timeline.addLabel('promote', `-=${config.durDrop * config.promoteOverlap}`)
+      timeline.addLabel('promote', `-=${animConfig.durDrop * animConfig.promoteOverlap}`)
       rest.forEach((idx, index) => {
         const element = refs[idx]?.current
         const slot = makeSlot(index, cardDistance, verticalDistance, refs.length)
         if (!element) return
-
         timeline.set(element, { zIndex: slot.zIndex }, 'promote')
         timeline.to(
           element,
@@ -137,15 +145,14 @@ function CardSwap({
             x: slot.x,
             y: slot.y,
             z: slot.z,
-            duration: config.durMove,
-            ease: config.ease,
+            duration: animConfig.durMove,
+            ease: animConfig.ease,
           },
           `promote+=${index * 0.15}`
         )
       })
-
       const backSlot = makeSlot(refs.length - 1, cardDistance, verticalDistance, refs.length)
-      timeline.addLabel('return', `promote+=${config.durMove * config.returnDelay}`)
+      timeline.addLabel('return', `promote+=${animConfig.durMove * animConfig.returnDelay}`)
       timeline.call(
         () => {
           gsap.set(frontElement, { zIndex: backSlot.zIndex })
@@ -159,12 +166,11 @@ function CardSwap({
           x: backSlot.x,
           y: backSlot.y,
           z: backSlot.z,
-          duration: config.durReturn,
-          ease: config.ease,
+          duration: animConfig.durReturn,
+          ease: animConfig.ease,
         },
         'return'
       )
-
       timeline.call(() => {
         order.current = [...rest, front]
       })
@@ -212,6 +218,7 @@ function CardSwap({
           onClick: (event) => {
             child.props.onClick?.(event)
             if (swapOnClick) {
+              clickSwapRef.current = true
               swapRef.current()
               startSwapInterval()
             }

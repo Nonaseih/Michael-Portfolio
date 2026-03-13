@@ -36,6 +36,134 @@
   color: var(--text-muted);
 }
 
+.project-swap-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  width: 100%;
+  height: 100%;
+  background: rgba(14, 14, 14, 0.92);
+  border: 1.5px solid var(--border);
+  border-radius: 0;
+  box-shadow: 0 2px 16px 0 rgba(0,0,0,0.18);
+  padding: 0;
+  overflow: hidden;
+  font-family: 'Rajdhani', Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  color: var(--text-primary);
+  transition: border-color 220ms, box-shadow 220ms;
+}
+
+.project-swap-card:hover {
+  border-color: var(--gold);
+  box-shadow: 0 6px 32px 0 rgba(240, 199, 94, 0.10);
+}
+
+.project-card-visual {
+  background: none;
+  border-bottom: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 140px;
+  width: 100%;
+}
+
+.project-card-icon-bg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 90px;
+  height: 90px;
+  background: none;
+  border-radius: 50%;
+  border: 1.5px solid var(--gold-soft);
+}
+
+.project-card-icon {
+  width: 54px;
+  height: 54px;
+  color: var(--gold);
+  stroke-width: 2.2;
+}
+
+.project-card-content {
+  padding: 1.2rem 1.5rem 0.2rem 1.5rem;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.project-card-title {
+  font-size: 1.45rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+  color: var(--gold);
+  letter-spacing: 0.01em;
+}
+
+.project-card-summary {
+  font-size: 1.08rem;
+  color: var(--text-muted);
+  margin-bottom: 1.1rem;
+  margin-top: 0;
+  line-height: 1.6;
+}
+
+.project-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 0.7rem;
+}
+
+.project-card-tag {
+  border: 1.2px solid var(--gold-soft);
+  background: rgba(0,0,0,0.18);
+  color: var(--gold);
+  font-size: 0.98rem;
+  padding: 0.28em 1em;
+  border-radius: 2px;
+  font-family: inherit;
+  letter-spacing: 0.01em;
+  transition: background 180ms, color 180ms;
+}
+
+.project-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: none;
+  background: none;
+  padding: 0.7rem 1.2rem 0.7rem 1.2rem;
+  font-size: 1.08rem;
+  color: var(--text-muted);
+  margin-top: 0.2rem;
+  position: relative;
+  top: -0.7rem;
+}
+
+.project-card-footer-icon {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: var(--gold-soft);
+}
+
+.project-card-footer-status {
+  font-size: 1.08rem;
+  color: var(--gold-soft);
+  font-family: inherit;
+}
+
+.project-card-footer-line {
+  width: 100%;
+  height: 1.5px;
+  background: var(--border);
+  margin: 0.5rem 0 0.1rem 0;
+}
+
 @media (max-width: 768px) {
   .card-swap-container {
     transform: scale(0.78) translate(64%, 0%);
